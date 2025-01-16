@@ -1,0 +1,52 @@
+{% extends 'exomarket_app/base.html' %}
+{% load static %}
+{% block content %}
+
+<body>
+    {% if user.is_authenticated %}
+    <form action="{% url 'new-item' %}" method="get">
+        <button type="submit" class="btn btn-primary">Click here to create a New Item!</button>
+    </form><br>
+    {% endif %}
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-info">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <h1>Item List</h1>
+    <ul>
+        {% for item in items %}
+            <li>
+                <strong>{{ item.name }}</strong><br>
+                <em>{{ item.description }}</em><br>
+                <p>Price: {{ item.price }} Coins</p>
+                <p>Category: {{ item.get_categories_display }}</p>
+                <p>Seller: {{ item.seller }}</p>
+
+                {% if user.is_authenticated %}
+                    <form action="{% url 'add_to_cart' item.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success">Add to Cart</button>
+                    </form>
+                {% else %}
+                    <p>Please log in to add items to your cart.</p>
+                {% endif %}
+            </li>
+
+            {% if item.image %}
+                <img class="image-post" src="{{ item.image.url }}" alt="post" height="300" width="300">
+            {% else %}
+                <img class="image-post" src="{% static 'assets/post.jpeg' %}" alt="static post" height="300" width="300">
+            {% endif %}
+        {% endfor %}
+    </ul>
+</body>
+
+{% endblock %}
+
+

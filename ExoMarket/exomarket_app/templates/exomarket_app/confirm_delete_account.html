@@ -1,0 +1,13 @@
+{% extends 'exomarket_app/base.html' %}
+{% block content %}
+<div>
+    <h2>Are you sure you want to delete your account?</h2>
+    <form action="{% url 'confirm_delete_account' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, delete my account</button>
+    </form>
+    <form action="{% url 'profile' username=request.user.username %}" method="get" style="display: inline;">
+        <button type="submit" class="btn btn-secondary">Cancel</button>
+    </form>
+</div>
+{% endblock %}

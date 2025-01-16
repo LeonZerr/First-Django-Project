@@ -1,0 +1,56 @@
+{% extends 'exomarket_app/base.html' %}
+{% load static %}
+{% block content %}
+
+<body>
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-info">
+                {{ message }}
+                <p>You have {{ request.user.coins }} coins available.</p>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <h1>Your Cart</h1>
+    <ul>
+        {% for cart in carts %}
+            {% for cart_item in cart.cart_items.all %}
+                <li>
+                    {{ cart_item.item.name }} - {{ cart_item.quantity }} pieces
+                    <p>Price per item: {{ cart_item.item.price }} Coins</p>
+                
+
+                    
+                    <form action="{% url 'delete_cart_item' cart_item.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete Item from Cart</button>
+                    </form>
+                </li><br>
+            {% endfor %}
+        
+            {% if cart.cart_items.exists %}
+                <h3>Checkout</h3>
+
+                {% if cart.id %}
+                <form action="{% url 'checkout' cart.id %}" method="get">
+                    <button type="submit" class="btn btn-primary">Buy</button>
+                </form>
+                
+                {% else %}
+                    <p>Your cart is empty. Add some items to your cart!</p>
+                {% endif %}
+            {% else %}
+                <p>Your cart is empty. Add some items to your cart!</p>
+            {% endif %}
+        {% empty %}
+            <li>No carts found.</li>
+        {% endfor %}
+    </ul>
+</body>
+
+{% endblock %}
+
+

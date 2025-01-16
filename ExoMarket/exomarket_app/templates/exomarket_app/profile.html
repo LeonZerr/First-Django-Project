@@ -1,0 +1,80 @@
+{% extends 'exomarket_app/base.html' %}
+{% load static %}
+{% block content %}
+<div>
+    <h1>Welcome to {{ user.username }}'s Profile!</h1>
+    <h2><b>Current Coin Balance: {{ user.coins }}</b></h2>
+    <p><b>Role: {{ user.get_role_display }}<b></p>
+    
+    {% if user.role == 'WI' %}
+        <img src="{% static 'assets/wizard.jpg' %}" alt="wizard" width="300" height="300">
+    {% else %}
+        <img src="{% static 'assets/warrior.jpg' %}" alt="warrior" width="300" height="300">
+    {% endif %}
+</div>
+
+<hr>
+
+<div>
+    <h2>Settings</h2>
+
+    <form action="{% url 'confirm_delete_account' %}" method="get">
+        <button type="submit" class="btn btn-danger">Delete Account</button>
+    </form>
+    
+    <form action="{% url 'password_change' %}" method="get" style="display: inline;">
+        <button type="submit" class="btn btn-secondary">Change Password</button>
+    </form><br>
+
+    <form action="{% url 'profile_update' user.username %}" method="get" style="display: inline;">
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+
+</div>
+
+<hr>
+
+<div>
+    <h2>Your Items on the Market</h2>
+    {% if user.items_for_sale.all %}
+        <ul>
+            {% for item in user.items_for_sale.all %}
+                <li>
+                    <strong>{{ item.name }}</strong> - {{ item.price }} coins
+                    <form action="{% url 'delete_item_from_market' item.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-warning">Delete Item from the Market</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You haven't listed any items on the market yet.</p>
+    {% endif %}
+</div>
+
+<hr>
+
+
+<div>
+    <h2>Your Inventory</h2><br>
+    {% if aggregated_transactions %}
+        <div class="row">
+            {% for transaction in aggregated_transactions %}
+                <div class="col-md-3">
+                    <div class="inventory-item text-center">
+                        <h3>{{ transaction.item.name }}</h3>
+                        <img src="{{ transaction.item.image.url }}" alt="{{ transaction.item.name }}" class="img-fluid" style="max-width: 150px;">
+                        <p>{{ transaction.item.description }}</p>
+                        <p>Quantity: {{ transaction.total_quantity }}</p>
+                    </div>
+                </div>
+                <div style="height: 30px;"></div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You haven't purchased any items yet.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

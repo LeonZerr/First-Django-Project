@@ -1,0 +1,17 @@
+{%extends 'exomarket_app/base.html' %}
+{% load static %}
+{%block content%}
+
+<body>
+    <h1>Users List</h1>
+    <ul>
+        {% for user in users %}
+            <li>
+                {{user.username}}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+
+{% endblock %}
+

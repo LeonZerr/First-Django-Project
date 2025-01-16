@@ -1,0 +1,58 @@
+{% extends 'exomarket_app/base.html' %}
+{% load static %}
+{% block content %}
+
+<body>
+    <h1>Welcome to Exomarket!</h1>
+
+    {% if user.is_authenticated %}
+        <h2>Your Transactions:</h2>
+
+        {% if page_obj.has_other_pages %}
+            <div>
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+
+        {% if page_obj %}
+            <ul>
+                {% for transaction in page_obj %}
+                    <li>
+                        <strong>Item:</strong> {{ transaction.item.name }} <br>
+                        <strong>Seller:</strong> {{ transaction.seller.username }} <br>
+                        <strong>Buyer:</strong> {{ transaction.buyer.username }} <br>
+                        <strong>Quantity:</strong> {{ transaction.quantity }} <br>
+                        <strong>Total Amount:</strong> {{ transaction.total_amount }} coins <br>
+                        <strong>Date:</strong> {{ transaction.date }}
+                    </li><br>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You have no transactions yet.</p>
+        {% endif %}
+    {% endif %} 
+           
+    {% if not user.is_authenticated %}
+        <b><p>Sign up as a Wizard or Warrior, and start your adventure.<br>
+        Explore a variety of items ranging from magical armor and spellbooks to epic weapons.<br>
+        Purchase items, sell them, or create new ones and bring them to the market!</p></b>
+    {% endif %}
+
+    <img src="{% static 'assets/exomarket.jpg' %}" alt="Exomarket">
+</body>
+
+{% endblock %}

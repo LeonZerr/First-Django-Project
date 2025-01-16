@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Exomarket App</title>
+</head>
+<body>
+    <header>
+        <h3>Exo Market</h3>
+        <nav>
+            <ul>
+               <a href="{%url 'home'%}">Home</a>
+               {%if request.user.is_authenticated %}
+               <a href="{%url 'profile' user.username %}">Profile</a>
+               <a href="{%url 'item_list'%}">Items</a>
+               <a href="{%url 'cart_list'%}">Cart</a>
+               <a href="{% url 'contact_us' %}">Contact Us</a>
+               <a href="{% url 'logout' %}">Logout</a>
+               {% else %}
+               <a href="{%url 'item_list'%}">Items</a>
+               <a href="{%url 'register'%}">Register</a>
+               <a href="{%url 'login' %}">Login</a>
+               {% endif %}
+            </ul>   
+        </nav>
+    </header>
+
+    <main>
+        {%block content%}
+        {%endblock%}
+    </main>
+    <footer>
+        &copy; Exomarket App 2024 - Developed by Leon Zerres
+    </footer>        
+</body>
+</html>
