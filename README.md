@@ -1,23 +1,22 @@
 # DjangoProjectLeon
-## Project Description  
 **"ExoMarket" is an interactive web application where users can create accounts, choose their roles (Wizard or Warrior) and dive into an exciting world where you can explore, trade, and create items (from magical armor and spellbooks to epic weapons). Join the adventure today!** 
 
 ![ExoMarket](https://github.com/dci-fbw-p-24-e03/DjangoProjetctLeon/blob/main/images-DjangoPrLeon/exomarket.jpg)  
 
 ## Technologies Used  
-**Django**: The web framework used to build the backend.   
-**SQL**: The database management system.   
-**Bootstrap**: For responsive and sleek UI.  
+ - **Django**: The web framework used to build the backend.   
+ - **SQL**: The database management system.   
+ - **Bootstrap**: For responsive and sleek UI.  
 
 ## Requirements
-asgiref==3.8.1  
-crispy-bootstrap5==2024.10  
-Django==5.1.3  
-django-crispy-forms==2.3  
-djangorestframework==3.15.2  
-pillow==11.0.0  
-sqlparse==0.5.2  
-typing_extensions==4.12.2  
+ - asgiref==3.8.1  
+ - crispy-bootstrap5==2024.10  
+ - Django==5.1.3   
+ - django-crispy-forms==2.3  
+ - djangorestframework==3.15.2  
+ - pillow==11.0.0  
+ - sqlparse==0.5.2  
+ - typing_extensions==4.12.2  
 
 ## User Actions  
 - **Registration and Login**
@@ -45,3 +44,7 @@ typing_extensions==4.12.2
 
 ## UML Diagramm 
 ![UML Diagramm](https://github.com/dci-fbw-p-24-e03/DjangoProjetctLeon/blob/main/diagram.png)  
+
+## Next Steps:
+ - Dockerization
+ - Add Unittests
