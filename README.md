@@ -42,9 +42,12 @@
   - Users can interact with other users through the marketplace (transactions).
   - Users can contact Developers and ask for help (contact us).
 
-## UML Diagramm 
+## URM Diagramm 
 ![UML Diagramm](https://github.com/dci-fbw-p-24-e03/DjangoProjetctLeon/blob/main/diagram.png)  
 
 ## Next Steps:
  - Dockerization
- - Add Unittests
+ - Implement Unittests
+ - Styling (Frondend)
+     
+   
